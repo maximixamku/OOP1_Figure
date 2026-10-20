@@ -1,4 +1,4 @@
-package main.java.org.example;
+package org.example;
 
 public record Point(double x, double y) implements Figure {
     @Override

@@ -1,4 +1,4 @@
-package main.java.org.example;
+package org.example;
 
 public record Circle(Point center, double radius) implements Figure {
     @Override

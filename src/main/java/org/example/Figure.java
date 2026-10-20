@@ -1,4 +1,4 @@
-package main.java.org.example;
+package org.example;
 
 public sealed interface Figure
         permits Point, Segment, Circle, Rectangle, Polygon/*, Group*/ {

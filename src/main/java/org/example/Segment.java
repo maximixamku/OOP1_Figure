@@ -1,4 +1,4 @@
-package main.java.org.example;
+package org.example;
 
 public record Segment(Point A, Point B) implements Figure {
     @Override

@@ -1,4 +1,4 @@
-package main.java.org.example;
+package org.example;
 
 public record Rectangle(Point A, double width, double height, int angle) implements Figure {
     @Override
