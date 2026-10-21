@@ -61,11 +61,18 @@ public record Rectangle(Point A, double width, double height, double angle) impl
 
     @Override
     public Figure scale(Point center, double factor) {
+        if (factor > 0) {
+            return new Rectangle(
+                    (Point) A.scale(center, factor),
+                    width * factor,
+                    height * factor,
+                    angle);
+        }
         return new Rectangle(
                 (Point) A.scale(center, factor),
-                width * factor,
-                height * factor,
-                angle);
+                width * -factor,
+                height * -factor,
+                angle + 180);
     }
 
     @Override
