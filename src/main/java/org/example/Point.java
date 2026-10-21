@@ -1,6 +1,7 @@
 package org.example;
 
 public record Point(double x, double y) implements Figure {
+
     @Override
     public double perimeter() {
         return 0;
@@ -42,7 +43,7 @@ public record Point(double x, double y) implements Figure {
 
     @Override
     public boolean contains(Point p) {
-        if ((Math.abs(p.x - x) < 1e-6) && (Math.abs(p.y - y) < 1e-6)) {
+        if ((Math.abs(p.x() - x) < 1e-6) && (Math.abs(p.y() - y) < 1e-6)) {
             return true;
         }
         return false;

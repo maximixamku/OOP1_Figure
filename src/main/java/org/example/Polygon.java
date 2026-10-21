@@ -4,6 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public record Polygon(List<Point> vertices) implements Figure {
+
+    public Polygon {
+        if (vertices == null || vertices.size() < 3) {
+            throw new InvalidGeometryException("Polygon needs at least 3 vertices");
+        }
+        vertices = List.copyOf(vertices);
+    }
+
     @Override
     public double perimeter() {
         double perimeter = 0;

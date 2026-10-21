@@ -2,6 +2,15 @@ package org.example;
 
 public record Segment(Point A, Point B) implements Figure {
 
+    public Segment {
+        if (A == null || B == null) {
+            throw new InvalidGeometryException("Endpoints must not be null");
+        }
+        if (A.equals(B)) {
+            throw new InvalidGeometryException("Segment endpoints must be distinct");
+        }
+    }
+
     private double length() {
         double dx = A.x() - B.x();
         double dy = A.y() - B.y();

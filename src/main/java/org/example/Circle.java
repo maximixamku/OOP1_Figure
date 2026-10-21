@@ -1,6 +1,13 @@
 package org.example;
 
 public record Circle(Point circleCenter, double radius) implements Figure {
+
+    public Circle {
+        if (radius <= 0) {
+            throw new InvalidGeometryException("Radius must be positive, got " + radius);
+        }
+    }
+
     @Override
     public double perimeter() {
         return radius * 2 * Math.PI;

@@ -1,6 +1,16 @@
 package org.example;
 
 public record Rectangle(Point A, double width, double height, double angle) implements Figure {
+
+    public Rectangle {
+        if (A == null) {
+            throw new InvalidGeometryException("A must not be null");
+        }
+        if (width <= 0 || height <= 0) {
+            throw new InvalidGeometryException("width and height must be positive");
+        }
+    }
+
     @Override
     public double perimeter() {
         return (height + width) * 2;

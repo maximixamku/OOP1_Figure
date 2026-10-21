@@ -5,6 +5,13 @@ import java.util.List;
 
 public record Group(List<Figure> children) implements Figure {
 
+    public Group {
+        if (children == null || children.isEmpty()) {
+            throw new InvalidGeometryException("Group cannot be empty");
+        }
+        children = List.copyOf(children);
+    }
+
     @Override
     public double perimeter() {
         double total = 0;
