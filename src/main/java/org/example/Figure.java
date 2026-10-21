@@ -1,7 +1,7 @@
 package org.example;
 
 public sealed interface Figure
-        permits Point, Segment, Circle, Rectangle, Polygon/*, Group*/ {
+        permits Point, Segment, Circle, Rectangle, Polygon, Group {
 
     double perimeter();
     double area();
@@ -18,7 +18,7 @@ public sealed interface Figure
             case Circle c -> ShapeKind.CIRCLE;
             case Rectangle r -> ShapeKind.RECTANGLE;
             case Polygon poly -> ShapeKind.POLYGON;
-            //case Group g -> ShapeKind.GROUP;
+            case Group g -> ShapeKind.GROUP;
         };
     }
 }
