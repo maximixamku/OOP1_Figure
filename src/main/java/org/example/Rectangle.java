@@ -72,7 +72,7 @@ public record Rectangle(Point A, double width, double height, double angle) impl
                 (Point) A.scale(center, factor),
                 width * -factor,
                 height * -factor,
-                angle + 180);
+                angle + Math.PI);
     }
 
     @Override

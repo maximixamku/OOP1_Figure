@@ -43,7 +43,7 @@ public record Circle(Point circleCenter, double radius) implements Figure {
 
     @Override
     public Figure scale(Point center, double factor) {
-        return new Circle(circleCenter, radius * Math.abs(factor));
+        return new Circle((Point) circleCenter.scale(center, factor), radius * Math.abs(factor));
     }
 
     @Override
