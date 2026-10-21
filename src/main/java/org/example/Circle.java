@@ -1,33 +1,39 @@
 package org.example;
 
-public record Circle(Point center, double radius) implements Figure {
+public record Circle(Point circleCenter, double radius) implements Figure {
     @Override
     public double perimeter() {
-        return 0;
+        return radius * 2 * Math.PI;
     }
 
     @Override
     public double area() {
-        return 0;
+        return radius * radius * Math.PI;
     }
 
     @Override
     public Figure translate(double dx, double dy) {
-        return null;
+        return new Circle(
+                (Point) circleCenter.translate(dx, dy),
+                radius);
     }
 
     @Override
     public Figure rotate(Point center, double angleRad) {
-        return null;
+        return new Circle(
+                (Point) circleCenter.rotate(center, angleRad),
+                radius);
     }
 
     @Override
     public Figure scale(Point center, double factor) {
-        return null;
+        return new Circle(circleCenter, radius * factor);
     }
 
     @Override
     public boolean contains(Point p) {
-        return false;
+        double dx = p.x() - circleCenter.x();
+        double dy = p.y() - circleCenter.y();
+        return dx * dx + dy * dy <= radius * radius + 1e-9;
     }
 }

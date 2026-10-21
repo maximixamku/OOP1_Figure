@@ -1,35 +1,90 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public record Polygon(List<Point> vertices) implements Figure {
     @Override
     public double perimeter() {
-        return 0;
+        double perimeter = 0;
+        for (int i = 0; i < vertices.size() - 1; i++) {
+            Point curr = vertices.get(i);
+            Point next = vertices.get(i + 1);
+            perimeter += Math.hypot(curr.x() - next.x(), curr.y() - next.y());
+        }
+        perimeter += Math.hypot(vertices.getLast().x() - vertices.get(0).x(), vertices.getLast().y() - vertices.get(0).y());
+        return perimeter;
     }
 
     @Override
     public double area() {
-        return 0;
+        if (vertices == null || vertices.size() < 3) {
+            return 0;
+        }
+
+        double sum = 0;
+        int n = vertices.size();
+
+        for (int i = 0; i < n; i++) {
+            Point current = vertices.get(i);
+            Point next = vertices.get((i + 1) % n);
+
+            sum += current.x() * next.y() - next.x() * current.y();
+        }
+
+        return Math.abs(sum) / 2.0;
     }
 
     @Override
     public Figure translate(double dx, double dy) {
-        return null;
+        List<Point> newVertices = new ArrayList<>();
+        for (int i = 0; i < vertices.size(); i++) {
+            newVertices.add((Point) vertices.get(i).translate(dx, dy));
+        }
+        return new Polygon(newVertices);
     }
 
     @Override
     public Figure rotate(Point center, double angleRad) {
-        return null;
+        List<Point> newVertices = new ArrayList<>();
+        for (int i = 0; i < vertices.size(); i++) {
+            newVertices.add((Point) vertices.get(i).rotate(center, angleRad));
+        }
+        return new Polygon(newVertices);
     }
 
     @Override
     public Figure scale(Point center, double factor) {
-        return null;
+        List<Point> newVertices = new ArrayList<>();
+        for (int i = 0; i < vertices.size(); i++) {
+            newVertices.add((Point) vertices.get(i).scale(center, factor));
+        }
+        return new Polygon(newVertices);
     }
 
     @Override
     public boolean contains(Point p) {
-        return false;
+        if (vertices == null || vertices.size() < 3) {
+            return false;
+        }
+
+        boolean result = false;
+        int n = vertices.size();
+
+        for (int i = 0; i < n; i++) {
+            Point current = vertices.get(i);
+            Point next = vertices.get((i + 1) % n);
+
+            if ((current.y() > p.y()) != (next.y() > p.y())) {
+                double intersectX = (next.x() - current.x()) * (p.y() - current.y())
+                        / (next.y() - current.y()) + current.x();
+
+                if (p.x() < intersectX) {
+                    result = !result;
+                }
+            }
+        }
+
+        return result;
     }
 }
