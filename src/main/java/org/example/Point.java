@@ -12,6 +12,11 @@ public record Point(double x, double y) implements Figure {
     }
 
     @Override
+    public BoundingBox boundingBox() {
+        return new BoundingBox(x, y, x, y);
+    }
+
+    @Override
     public Figure translate(double dx, double dy) {
         return new Point(x + dx, y + dy);
     }

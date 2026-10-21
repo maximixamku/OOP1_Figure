@@ -19,6 +19,16 @@ public record Segment(Point A, Point B) implements Figure {
     }
 
     @Override
+    public BoundingBox boundingBox() {
+        return new BoundingBox(
+                Math.min(A.x(), B.x()),
+                Math.min(A.y(), B.y()),
+                Math.max(A.x(), B.x()),
+                Math.max(A.y(), B.y())
+        );
+    }
+
+    @Override
     public Figure translate(double dx, double dy) {
         return new Segment(
                 (Point) A.translate(dx, dy),
@@ -40,9 +50,9 @@ public record Segment(Point A, Point B) implements Figure {
     }
 
     @Override
-    public boolean contains(Point P) {
-        double distanceAP = Math.hypot(P.x() - A.x(), P.y() - A.y());
-        double distancePB = Math.hypot(B.x() - P.x(), B.y() - P.y());
+    public boolean contains(Point p) {
+        double distanceAP = Math.hypot(p.x() - A.x(), p.y() - A.y());
+        double distancePB = Math.hypot(B.x() - p.x(), B.y() - p.y());
         double distanceAB = Math.hypot(B.x() - A.x(), B.y() - A.y());
 
         return Math.abs((distanceAP + distancePB) - distanceAB) < 1e-9;

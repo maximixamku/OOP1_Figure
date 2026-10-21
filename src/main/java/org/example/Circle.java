@@ -12,6 +12,15 @@ public record Circle(Point circleCenter, double radius) implements Figure {
     }
 
     @Override
+    public BoundingBox boundingBox() {
+        return new BoundingBox(
+                circleCenter.x() - radius,
+                circleCenter.y() - radius,
+                circleCenter.x() + radius,
+                circleCenter.y() + radius);
+    }
+
+    @Override
     public Figure translate(double dx, double dy) {
         return new Circle(
                 (Point) circleCenter.translate(dx, dy),

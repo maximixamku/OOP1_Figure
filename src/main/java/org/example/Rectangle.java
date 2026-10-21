@@ -12,6 +12,26 @@ public record Rectangle(Point A, double width, double height, double angle) impl
     }
 
     @Override
+    public BoundingBox boundingBox() {
+        double[][] localCorners = {
+                {0, 0}, {width, 0}, {width, height}, {0, height}
+        };
+        double cos = Math.cos(angle);
+        double sin = Math.sin(angle);
+        double minX = Double.POSITIVE_INFINITY, minY = Double.POSITIVE_INFINITY;
+        double maxX = Double.NEGATIVE_INFINITY, maxY = Double.NEGATIVE_INFINITY;
+        for (double[] c : localCorners) {
+            double wx = A.x() + c[0] * cos - c[1] * sin;
+            double wy = A.y() + c[0] * sin + c[1] * cos;
+            minX = Math.min(minX, wx);
+            minY = Math.min(minY, wy);
+            maxX = Math.max(maxX, wx);
+            maxY = Math.max(maxY, wy);
+        }
+        return new BoundingBox(minX, minY, maxX, maxY);
+    }
+
+    @Override
     public Figure translate(double dx, double dy) {
         return new Rectangle(
                 (Point) A.translate(dx, dy),

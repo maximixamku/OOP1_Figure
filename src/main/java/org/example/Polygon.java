@@ -36,6 +36,19 @@ public record Polygon(List<Point> vertices) implements Figure {
     }
 
     @Override
+    public BoundingBox boundingBox() {
+        double minX = Double.POSITIVE_INFINITY, minY = Double.POSITIVE_INFINITY;
+        double maxX = Double.NEGATIVE_INFINITY, maxY = Double.NEGATIVE_INFINITY;
+        for (Point p : vertices) {
+            minX = Math.min(minX, p.x());
+            minY = Math.min(minY, p.y());
+            maxX = Math.max(maxX, p.x());
+            maxY = Math.max(maxY, p.y());
+        }
+        return new BoundingBox(minX, minY, maxX, maxY);
+    }
+
+    @Override
     public Figure translate(double dx, double dy) {
         List<Point> newVertices = new ArrayList<>();
         for (int i = 0; i < vertices.size(); i++) {

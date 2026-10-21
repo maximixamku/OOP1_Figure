@@ -5,7 +5,7 @@ public sealed interface Figure
 
     double perimeter();
     double area();
-    //BoundingBox boundingBox();
+    BoundingBox boundingBox();
     Figure translate(double dx, double dy);
     Figure rotate(Point center, double angleRad);
     Figure scale(Point center, double factor);
